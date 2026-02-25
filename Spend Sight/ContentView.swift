@@ -19,6 +19,7 @@ struct ContentView: View {
                 .tabItem({Label("Insights",systemImage: "chart.line.uptrend.xyaxis")})
         }
     }
+    
 }
 
 #Preview {
