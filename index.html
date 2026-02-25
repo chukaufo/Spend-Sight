@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spend Sight — iOS Receipt Scanner & Spending Insights</title>
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#111827;
+      --muted:#94a3b8;
+      --text:#e5e7eb;
+      --accent:#AEAA3E; /* your gold */
+      --line:#1f2937;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 20% -10%, rgba(174,170,62,.18), transparent 60%),
+                  radial-gradient(900px 500px at 90% 0%, rgba(56,189,248,.12), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    header{
+      padding:56px 20px 28px;
+      border-bottom:1px solid var(--line);
+      background: rgba(17,24,39,.35);
+      backdrop-filter: blur(8px);
+    }
+    .container{max-width:980px; margin:0 auto}
+    .badge{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:8px 12px;
+      border:1px solid rgba(174,170,62,.35);
+      background: rgba(174,170,62,.08);
+      border-radius:999px;
+      color:var(--text);
+      font-size:14px;
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:42px;
+      letter-spacing:-0.02em;
+    }
+    .subtitle{
+      color:var(--muted);
+      font-size:18px;
+      max-width:880px;
+      margin:0 0 18px;
+    }
+    .cta{
+      display:flex; gap:12px; flex-wrap:wrap;
+      margin-top:18px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      border-radius:12px;
+      padding:10px 14px;
+      border:1px solid var(--line);
+      background: rgba(17,24,39,.65);
+      color:var(--text);
+      font-weight:600;
+    }
+    .btn.primary{
+      border:1px solid rgba(174,170,62,.55);
+      background: rgba(174,170,62,.12);
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:16px;
+      padding:28px 20px;
+    }
+    .card{
+      grid-column: span 12;
+      background: rgba(17,24,39,.7);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px 18px;
+    }
+    .card h2{margin:0 0 10px; font-size:22px}
+    .card p{margin:0 0 10px; color:var(--muted)}
+    .list{
+      margin:10px 0 0;
+      padding-left:18px;
+      color:var(--text);
+    }
+    .list li{margin:6px 0; color:var(--text)}
+    .muted{color:var(--muted)}
+    .two-col{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:16px;
+    }
+    @media (min-width: 860px){
+      .two-col{grid-template-columns: 1fr 1fr;}
+    }
+    .pill{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(148,163,184,.10);
+      border:1px solid rgba(148,163,184,.20);
+      color:var(--text);
+      font-size:13px;
+      margin:4px 6px 0 0;
+    }
+    .section-title{
+      font-size:14px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+    code{
+      background: rgba(148,163,184,.10);
+      border:1px solid rgba(148,163,184,.20);
+      padding:2px 6px;
+      border-radius:8px;
+      color:var(--text);
+    }
+    pre{
+      background: rgba(17,24,39,.85);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px;
+      overflow:auto;
+      margin:12px 0 0;
+    }
+    footer{
+      padding:22px 20px 40px;
+      color:var(--muted);
+      border-top:1px solid var(--line);
+    }
+    .small{font-size:14px}
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <div class="badge">📸 Spend Sight <span class="muted">iOS · OCR · Core Data · Charts</span></div>
+      <h1>Spend Sight</h1>
+      <p class="subtitle">
+        Spend Sight is an iOS receipt-scanning app that converts physical receipts into structured financial data using
+        on-device OCR (Apple Vision) and Core Data. Users can scan or upload a receipt, extract key purchase details,
+        assign a spending category, and view daily/weekly spending trends through interactive charts.
+      </p>
+
+      <div class="cta">
+        <a class="btn primary" href="https://github.com/chukaufo/Spend-Sight" target="_blank" rel="noreferrer">
+          🔗 View GitHub Repo
+        </a>
+        <a class="btn" href="#how-to-run">▶️ How to Run</a>
+        <a class="btn" href="#views">🧭 App Views</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="grid">
+
+      <div class="card">
+        <div class="section-title">Overview</div>
+        <p>
+          The goal of Spend Sight is to take unstructured receipt text and turn it into data you can actually use:
+          totals, dates, merchants, categories, and spending trends. It’s built entirely with native iOS tooling
+          to keep performance high and data local.
+        </p>
+        <div>
+          <span class="pill">SwiftUI</span>
+          <span class="pill">Vision OCR</span>
+          <span class="pill">Core Data</span>
+          <span class="pill">Swift Charts</span>
+          <span class="pill">UIKit ImagePicker</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Key Features</div>
+        <div class="two-col">
+          <div>
+            <h2>🚀 Features</h2>
+            <ul class="list">
+              <li>📷 Scan receipts using camera or photo library</li>
+              <li>🔎 On-device OCR using Apple’s Vision framework</li>
+              <li>🧾 Extracts store name, total amount, and date (best-effort parsing)</li>
+              <li>🏷 User-selected spending category before saving</li>
+              <li>🔁 Rescan an existing receipt to replace stored details</li>
+              <li>🗑 Delete receipts at any time</li>
+            </ul>
+          </div>
+          <div>
+            <h2>📊 Insights</h2>
+            <ul class="list">
+              <li>Daily spending chart (filled for missing days)</li>
+              <li>Weekly spending chart (grouped by calendar week)</li>
+              <li>30-day summary: total spent + average daily spend</li>
+              <li>Designed to scale into monthly trends and category breakdowns</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="views">
+        <div class="section-title">App Views (Detailed)</div>
+
+        <h2>📷 Scanner View</h2>
+        <p>
+          The Scanner view is the primary entry point. Users can either take a new photo of a receipt or upload one from
+          their library. After selecting an image, the app runs Vision OCR asynchronously to avoid blocking the UI.
+          When OCR completes, the raw text is parsed into structured fields (store, total, date) and displayed as a
+          clean preview card.
+        </p>
+        <ul class="list">
+          <li><strong>Scan options:</strong> camera capture or photo library upload</li>
+          <li><strong>Processing state:</strong> shows a loading indicator while OCR runs</li>
+          <li><strong>Preview card:</strong> displays extracted <em>Store Name</em>, <em>Total</em>, and <em>Date</em></li>
+          <li><strong>Category selection:</strong> user picks a category (e.g., Groceries, Dining, Transport)</li>
+          <li><strong>Save flow:</strong> saves structured data + raw OCR text to Core Data</li>
+        </ul>
+
+        <h2 style="margin-top:18px;">🧾 Receipt List View</h2>
+        <p>
+          The Receipt List view displays all saved receipts pulled from Core Data using a fetch request.
+          Receipts are sorted by date (newest first). Each row shows the merchant, total, category, and date for quick
+          scanning. Tapping a receipt opens a detail page.
+        </p>
+        <ul class="list">
+          <li><strong>Core Data fetch:</strong> persistent list across app launches</li>
+          <li><strong>Readable rows:</strong> store name + total + category + date</li>
+          <li><strong>Navigation:</strong> tap a receipt to view details</li>
+        </ul>
+
+        <h2 style="margin-top:18px;">🧾 Receipt Detail View</h2>
+        <p>
+          The Receipt Detail view shows the saved receipt summary and the original OCR output line-by-line.
+          This is useful both for transparency and debugging OCR edge cases. Users can delete a receipt or rescan it to
+          replace all stored details while keeping the same record in Core Data.
+        </p>
+        <ul class="list">
+          <li><strong>Summary:</strong> store name, total, category, date</li>
+          <li><strong>OCR transparency:</strong> displays scanned text line-by-line</li>
+          <li><strong>Rescan + replace:</strong> choose a new image → OCR → parse → overwrite fields</li>
+          <li><strong>Delete:</strong> removes the record from Core Data with confirmation</li>
+        </ul>
+
+        <h2 style="margin-top:18px;">📊 Insights View</h2>
+        <p>
+          The Insights view aggregates receipts into daily and weekly totals, then visualizes them using Swift Charts.
+          Daily totals are grouped by calendar day and missing dates are filled with $0 to keep the chart continuous.
+          Weekly totals are grouped by week start date. A summary card displays total spending over the selected window
+          and average daily spend.
+        </p>
+        <ul class="list">
+          <li><strong>Daily chart:</strong> 30-day daily totals (continuous timeline)</li>
+          <li><strong>Weekly chart:</strong> grouped by week (last 12 weeks)</li>
+          <li><strong>Summary metrics:</strong> total spent + daily average</li>
+          <li><strong>Extensible:</strong> ready for category breakdowns and monthly analytics</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Tech Stack</div>
+        <ul class="list">
+          <li><strong>SwiftUI</strong> — UI framework</li>
+          <li><strong>Vision Framework</strong> — Optical Character Recognition (OCR)</li>
+          <li><strong>Core Data</strong> — Local data persistence</li>
+          <li><strong>Swift Charts</strong> — Spending visualizations</li>
+          <li><strong>UIKit (ImagePicker)</strong> — Camera & photo library integration</li>
+        </ul>
+      </div>
+
+      <div class="card" id="how-to-run">
+        <div class="section-title">How to Run</div>
+        <p class="muted">
+          Swift Charts requires iOS 16+. Camera capture requires a physical iPhone.
+        </p>
+
+        <pre><code>git clone https://github.com/chukaufo/Spend-Sight.git</code></pre>
+
+        <ul class="list">
+          <li>Open <code>Spend Sight.xcodeproj</code> in Xcode</li>
+          <li>Ensure deployment target is <strong>iOS 16+</strong></li>
+          <li>Run on simulator or device (camera needs a real iPhone)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Future Improvements</div>
+        <ul class="list">
+          <li>Category breakdown (pie chart / stacked bars)</li>
+          <li>Monthly + yearly trend analysis</li>
+          <li>Budget tracking and alerts</li>
+          <li>Improved item-level parsing (line items, quantities)</li>
+          <li>Search / filter receipts (merchant, date range, category)</li>
+          <li>iCloud sync</li>
+          <li>Export to CSV</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Project Purpose</div>
+        <p>
+          Spend Sight was built to explore how unstructured financial data from physical receipts can be transformed into
+          structured insights using native iOS technologies. The project highlights OCR processing, parsing, persistence,
+          and visualization—end-to-end—in a clean user flow:
+          <strong>Scan → Preview → Categorize → Save → Analyze</strong>.
+        </p>
+      </div>
+
+    </section>
+  </main>
+
+  <footer>
+    <div class="container small">
+      Built with SwiftUI + Vision OCR + Core Data + Swift Charts.
+      <span class="muted">Repo:</span>
+      <a href="https://github.com/chukaufo/Spend-Sight" target="_blank" rel="noreferrer">github.com/chukaufo/Spend-Sight</a>
+    </div>
+  </footer>
+
+</body>
+</html>
